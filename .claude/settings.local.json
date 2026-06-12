@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export DOTNET_ROOT=\"$HOME/.dotnet\")",
+      "Bash(export PATH=\"$HOME/.dotnet:$PATH\")",
+      "Bash(dotnet build *)",
+      "Bash(dotnet test *)",
+      "Bash(dotnet run *)",
+      "Bash(dotnet restore *)",
+      "Bash(dotnet format *)",
+      "Bash(dotnet --version)",
+      "Bash(dotnet --list-sdks)",
+      "Bash(dotnet user-secrets *)",
+      "Bash(curl -s http://localhost:*)",
+      "Bash(curl -i http://localhost:*)",
+      "Bash(curl -fsS http://localhost:*)",
+      "Bash(curl http://localhost:*)",
+      "Bash(git add *)",
+      "Bash(git checkout *)",
+      "Bash(git status*)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(gh pr *)",
+      "Bash(gh auth *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Read(//tmp/**)"
+    ]
+  },
+  "enabledMcpjsonServers": ["github", "context7"]
+}

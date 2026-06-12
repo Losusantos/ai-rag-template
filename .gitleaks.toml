@@ -1,0 +1,25 @@
+# gitleaks 設定
+#
+# デフォルトルールを継承しつつ、ドキュメント内の「悪い例」用ダミー値だけを
+# 許可リストに登録する。実在しないプレースホルダなので検出対象から外す。
+# (本物のシークレットは引き続きデフォルトルールで検出される。)
+title = "gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "規約ドキュメントの教材用ダミー API キー (実在しないプレースホルダ)"
+# .claude 配下の規約ドキュメントが「ハードコード禁止」を説明するために置いている
+# 固定ダミー値。sk-1234567890abcdef は連番のプレースホルダで実シークレットではない。
+#   - .claude/agents/implementation-validator.md
+#   - .claude/skills/development-guidelines/guides/implementation.md
+# また appsettings.json のプレースホルダ (<...>) も実値ではないため許可する。
+regexes = [
+  '''sk-1234567890abcdef''',
+  '''<set-via-user-secrets-or-env>''',
+  '''<your-azure-openai-api-key>''',
+]
+paths = [
+  '''appsettings\.json''',
+]

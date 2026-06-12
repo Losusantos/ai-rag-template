@@ -20,6 +20,9 @@ App_Data/
 appsettings.*.local.json
 secrets.json
 
+# ローカル検証ツール (Playwright MCP 等) の生成物
+.playwright-mcp/
+
 # OS
 .DS_Store
 Thumbs.db

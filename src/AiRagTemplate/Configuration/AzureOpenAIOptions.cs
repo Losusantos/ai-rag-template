@@ -14,8 +14,8 @@ public sealed class AzureOpenAIOptions
     /// <summary>API キー。コミットせずユーザーシークレット/環境変数で渡すこと。</summary>
     public string ApiKey { get; init; } = string.Empty;
 
-    /// <summary>チャットモデルのデプロイ名 (例: gpt-4o-mini)。</summary>
-    public string ChatDeployment { get; init; } = "gpt-4o-mini";
+    /// <summary>チャットモデルのデプロイ名 (例: gpt-5-mini)。</summary>
+    public string ChatDeployment { get; init; } = "gpt-5-mini";
 
     /// <summary>Embedding モデルのデプロイ名 (例: text-embedding-3-small)。</summary>
     public string EmbeddingDeployment { get; init; } = "text-embedding-3-small";

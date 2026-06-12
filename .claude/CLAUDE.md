@@ -17,7 +17,7 @@
 
 技術スタック:
 - C# / ASP.NET Core (Minimal API)
-- Microsoft.Extensions.AI(LLM 抽象化) + Azure OpenAI(gpt-4o-mini / text-embedding-3-small)
+- Microsoft.Extensions.AI(LLM 抽象化) + Azure OpenAI(gpt-5-mini / text-embedding-3-small)
 - SQLite 永続ベクトルストア(純マネージド・`IVectorStore` 抽象で差し替え可能)
 - 単一 HTML チャット画面(wwwroot)
 - テスト: xUnit
@@ -134,7 +134,7 @@ appsettings はプレースホルダのみ。実値は user-secrets か環境変
 # 必須(user-secrets 推奨)
 AzureOpenAI__Endpoint=https://<resource>.openai.azure.com/
 AzureOpenAI__ApiKey=<key>
-AzureOpenAI__ChatDeployment=gpt-4o-mini
+AzureOpenAI__ChatDeployment=gpt-5-mini
 AzureOpenAI__EmbeddingDeployment=text-embedding-3-small
 
 # オプション

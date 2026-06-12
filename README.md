@@ -12,7 +12,7 @@ Azure OpenAI を裏に置いた `Microsoft.Extensions.AI`(`IChatClient` / `IEmbe
 |------|------|
 | 言語 / FW | C# / ASP.NET Core (Minimal API) |
 | LLM 抽象化 | Microsoft.Extensions.AI (`IChatClient` / `IEmbeddingGenerator`) |
-| チャットモデル | Azure OpenAI にデプロイした `gpt-4o-mini` |
+| チャットモデル | Azure OpenAI にデプロイした `gpt-5-mini` |
 | Embedding | Azure OpenAI にデプロイした `text-embedding-3-small` |
 | ベクトルストア | SQLite で永続化(純マネージド・ネイティブ拡張なし) |
 | 文書 | 架空企業の就業規則・経費精算マニュアル・FAQ(`data/`) |
@@ -22,7 +22,7 @@ Azure OpenAI を裏に置いた `Microsoft.Extensions.AI`(`IChatClient` / `IEmbe
 
 - .NET 9 SDK(`dotnet --version` で確認。未導入なら https://dotnet.microsoft.com/download から)
 - Azure OpenAI リソースと、以下 2 つのデプロイ
-  - チャット: `gpt-4o-mini`
+  - チャット: `gpt-5-mini`
   - 埋め込み: `text-embedding-3-small`
 
 ## セットアップ
@@ -38,7 +38,7 @@ cd src/AiRagTemplate
 dotnet user-secrets init
 dotnet user-secrets set "AzureOpenAI:Endpoint" "https://<your-resource-name>.openai.azure.com/"
 dotnet user-secrets set "AzureOpenAI:ApiKey" "<your-azure-openai-api-key>"
-dotnet user-secrets set "AzureOpenAI:ChatDeployment" "gpt-4o-mini"
+dotnet user-secrets set "AzureOpenAI:ChatDeployment" "gpt-5-mini"
 dotnet user-secrets set "AzureOpenAI:EmbeddingDeployment" "text-embedding-3-small"
 ```
 
@@ -47,7 +47,7 @@ dotnet user-secrets set "AzureOpenAI:EmbeddingDeployment" "text-embedding-3-smal
 ```bash
 export AzureOpenAI__Endpoint="https://<your-resource-name>.openai.azure.com/"
 export AzureOpenAI__ApiKey="<your-azure-openai-api-key>"
-export AzureOpenAI__ChatDeployment="gpt-4o-mini"
+export AzureOpenAI__ChatDeployment="gpt-5-mini"
 export AzureOpenAI__EmbeddingDeployment="text-embedding-3-small"
 ```
 

@@ -11,12 +11,15 @@ public sealed class RagService
 {
     private const int TopK = 4;
 
+    // 文書に根拠が無いときの定型文。この文が返ったら出典は付けない。
+    private const string NotFoundReply = "提供された文書では分かりません。";
+
     private const string SystemPrompt =
         """
         あなたは社内ヘルプデスクのアシスタントです。以下のルールを厳守してください。
         - 回答は提供された「社内文書(抜粋)」の内容のみに基づいて作成する。
-        - 文書に根拠がない場合は推測せず「提供された文書では分かりません」と答える。
-        - 回答は日本語で簡潔に。可能なら根拠とした出典名を本文に示す。
+        - 文書に根拠が無い場合は推測せず、本文を一字一句この通りにする: 「提供された文書では分かりません。」(出典名や補足を一切付けない)
+        - 文書に根拠がある場合のみ、日本語で簡潔に答え、根拠とした出典名を本文に示す。
         """;
 
     private readonly IChatClient _chatClient;
@@ -56,13 +59,28 @@ public sealed class RagService
         };
 
         var response = await _chatClient.GetResponseAsync(messages, cancellationToken: cancellationToken);
+        var answer = (response.Text ?? string.Empty).Trim();
+
+        // 文書に根拠が無い回答には出典を付けない
+        // (検索で引いただけの文書を「出典」として見せてしまう誤解を防ぐ)。
+        if (IsNotGrounded(answer))
+        {
+            return new RagAnswer(NotFoundReply, Array.Empty<string>());
+        }
+
         var sources = hits
             .Select(h => h.Chunk.Source)
             .Distinct()
             .ToArray();
 
-        return new RagAnswer(response.Text ?? string.Empty, sources);
+        return new RagAnswer(answer, sources);
     }
+
+    /// <summary>モデルが「文書に根拠が無い」と答えたか(=出典を付けない回答か)を判定する。</summary>
+    private static bool IsNotGrounded(string answer) =>
+        answer.Contains("提供された文書では分かりません", StringComparison.Ordinal)
+        || answer.Contains("記載がありません", StringComparison.Ordinal)
+        || answer.Contains("分かりません", StringComparison.Ordinal);
 
     private static string BuildContext(IReadOnlyList<ScoredChunk> hits)
     {
